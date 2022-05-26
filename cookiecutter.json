@@ -14,5 +14,6 @@
         "None"
     ],
     "license_fullname": "{{ cookiecutter.author_name }}",
-    "license_year": "{% now 'utc', '%Y' %}"
+    "license_year": "{% now 'utc', '%Y' %}",
+    "python_version": ">=3.8,<3.12"
 }
