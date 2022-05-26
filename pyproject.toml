@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "cookiecutter-python-package"
+version = "0.1.0"
+description = "A Cookiecutter template for Python packages."
+authors = ["HE Yaowen <he.yaowen@hotmail.com>"]
+license = "GPL-3.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.12"
+
+[tool.poetry.group.dev.dependencies]
+chance = "^0.110"
+pytest = "^7.2.1"
+pytest-cookies = "^0.6.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
