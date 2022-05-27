@@ -11,6 +11,7 @@ packages = [{include = "{{ cookiecutter.project_slug }}", from = "src"}]
 python = "{{ cookiecutter.python_version }}"
 
 [tool.poetry.group.dev.dependencies]
+coverage = "^6.5.0"
 pytest = "^7.2.1"
 
 [build-system]
