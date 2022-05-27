@@ -10,3 +10,7 @@ test:
 coverage:
 	@poetry run coverage run -m pytest
 	@poetry run coverage report -m
+
+.PHONY: lint
+lint:
+	@poetry run pylint src
