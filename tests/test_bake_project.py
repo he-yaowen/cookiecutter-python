@@ -42,3 +42,15 @@ def test_bake_readme(cookies):
 
     assert license_stubs[license_id] in readme
     assert f'Copyright (C) {context["license_year"]} {context["license_fullname"]} <{context["author_email"]}>' in readme
+
+
+def test_bake_with_click(cookies):
+    result = cookies.bake(extra_context={'with_click': 'yes'})
+
+    assert 'click' in result.project_path.joinpath('pyproject.toml').read_text()
+    assert result.project_path.joinpath(f'src/{result.context["project_slug"]}/__main__.py').exists()
+
+    result = cookies.bake(extra_context={'with_click': 'no'})
+
+    assert 'click' not in result.project_path.joinpath('pyproject.toml').read_text()
+    assert not result.project_path.joinpath(f'src/{result.context["project_slug"]}/__main__.py').exists()
