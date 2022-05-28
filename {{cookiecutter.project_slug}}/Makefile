@@ -15,3 +15,9 @@ coverage:
 .PHONY: lint
 lint:
 	@poetry run pylint src
+
+{% if cookiecutter.with_pyinstaller == 'yes' %}
+.PHONY: dist
+dist:
+	@poetry run pyinstaller {{cookiecutter.project_slug}}.spec
+{% endif %}

@@ -19,5 +19,9 @@
     "with_click": [
         "no",
         "yes"
+    ],
+    "with_pyinstaller": [
+        "no",
+        "yes"
     ]
 }

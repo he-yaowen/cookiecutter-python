@@ -73,3 +73,15 @@ def test_bake_with_click(cookies):
 
     assert 'click' not in result.project_path.joinpath('pyproject.toml').read_text()
     assert not result.project_path.joinpath(f'src/{result.context["project_slug"]}/__main__.py').exists()
+
+
+def test_bake_pyinstaller(cookies):
+    result = cookies.bake(extra_context={'with_pyinstaller': 'yes'})
+
+    assert 'pyinstaller' in result.project_path.joinpath('pyproject.toml').read_text()
+    assert result.project_path.joinpath(f'{result.context["project_slug"]}.spec').exists()
+
+    result = cookies.bake(extra_context={'with_pyinstaller': 'no'})
+
+    assert 'pyinstaller' not in result.project_path.joinpath('pyproject.toml').read_text()
+    assert not result.project_path.joinpath(f'{result.context["project_slug"]}.spec').exists()
