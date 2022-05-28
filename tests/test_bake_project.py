@@ -20,17 +20,20 @@ def test_bake_license(cookies):
             assert not result.project_path.joinpath(f'LICENSE.{key}').exists()
 
 
-def test_bake_readme(cookies):
+def test_bake_context(cookies):
     license_id = chance.pickone([key for key in license_stubs.keys()])
 
     context = {
         'project_name': f'{chance.word().capitalize()} {chance.word().capitalize()}',
         'project_slug': chance.word(),
+        'project_version': f'{random.randint(0, 9)}.{random.randint(0, 9)}.{random.randint(0, 9)}',
         'project_description': chance.sentence(),
+        'author_name': chance.name(),
         'author_email': chance.email(),
         'license_id': license_id,
         'license_fullname': chance.name(),
-        'license_year': random.randint(2000, 2022)
+        'license_year': random.randint(2000, 2022),
+        'python_version': chance.pickone(['3.7', '3.8', '3.9', '3.10', '3.11'])
     }
 
     result = cookies.bake(extra_context=context)
@@ -42,6 +45,14 @@ def test_bake_readme(cookies):
 
     assert license_stubs[license_id] in readme
     assert f'Copyright (C) {context["license_year"]} {context["license_fullname"]} <{context["author_email"]}>' in readme
+
+    pyproject = result.project_path.joinpath('pyproject.toml').read_text()
+
+    assert context['project_description'] in pyproject
+    assert context['project_version'] in pyproject
+    assert context['author_name'] in pyproject
+    assert context['author_email'] in pyproject
+    assert context['python_version'] in pyproject
 
 
 def test_bake_package(cookies):
